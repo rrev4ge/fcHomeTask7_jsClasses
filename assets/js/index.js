@@ -3,41 +3,39 @@
 // MyArray class:
 
 class MyArray {
-  
-  constructor (){
+  constructor() {
     this.length = 0;
 
     for (let i = 0; i < arguments.length; i++) {
       this[this.length] = arguments[i];
       this.length++;
-    };
-
-  };
+    }
+  }
 
   push() {
     for (let i = 0; i < arguments.length; i++) {
       this[this.length] = arguments[i];
       this.length++;
-    };
+    }
     return this.length;
-  };
+  }
 
-  pop () {
+  pop() {
     if (this.length > 0) {
       let delValue = this[this.length - 1];
       delete this[this.length - 1];
       this.length--;
       return delValue;
     }
-  };
+  }
 
-  forEach (callback) {
+  forEach(callback) {
     for (let i = 0; i < this.length; i++) {
       callback(this[i], i, this);
     }
-  };
+  }
 
-  concat (array) {
+  concat(array) {
     let result = new MyArray();
 
     for (let i = 0; i < this.length; i++) {
@@ -49,9 +47,9 @@ class MyArray {
     }
 
     return result;
-  };
+  }
 
-  flat (depth = 1) {
+  flat(depth = 1) {
     if (depth < 0) {
       console.error("depth must be a positive value");
       return;
@@ -63,20 +61,18 @@ class MyArray {
       return this;
     }
 
-    for (let i = 0; i < this.length; i++) { 
+    for (let i = 0; i < this.length; i++) {
       if (typeof this[i] === "object") {
-          newArr = newArr.concat(this[i].flat(depth - 1));
+        newArr = newArr.concat(this[i].flat(depth - 1));
       } else if (this[i] !== undefined) {
         newArr.push(this[i]);
       }
     }
 
     return newArr;
+  }
 
-  };
-
-
-  shift () {
+  shift() {
     if (this.length > 0) {
       let delValue = this[0];
       for (let i = 1; i <= this.length; i++) {
@@ -86,8 +82,7 @@ class MyArray {
       this.length--;
       return delValue;
     }
-  };
-
+  }
 
   unshift() {
     for (let i = arguments.length - 1; i >= 0; i--) {
@@ -96,51 +91,47 @@ class MyArray {
       }
       this.length++;
       this[0] = arguments[i];
-    };
+    }
     return this.length;
-  };
-
-
-};
+  }
+}
 
 // Range validator:
 
 class RangeValidator {
-
-  constructor (from, to) {
+  constructor(from, to) {
     this._from = from;
     this._to = to;
-  };
+  }
 
-  set from (from) {
+  set from(from) {
     if (typeof from !== "number") {
       throw new TypeError("From must be a number");
     }
     this._from = from;
   }
 
-  get from () {
+  get from() {
     return this._from;
-  };
+  }
 
-
-  set to (to) {
+  set to(to) {
     if (typeof to !== "number") {
       throw new TypeError("To must be a number");
     }
     this._to = to;
-  };
+  }
 
-  get to () {
+  get to() {
     return this._to;
-  };
+  }
 
-  get range () {
+  get range() {
     return [this._from, this._to];
   }
 
-  validate (number) {
-      return number >= this.from && number <= this.to;
+  validate(number) {
+    return number >= this.from && number <= this.to;
   }
 }
 
@@ -155,29 +146,28 @@ function isIncluded(arr, arg) {
   return false;
 }
 
-
 function isSumLess(num) {
   let sum = 0;
-  let arr = String(num).split('');
+  let arr = String(num).split("");
   for (const value of arr) {
-      sum += parseInt(value, 10);
+    sum += parseInt(value, 10);
   }
 
   if (sum > 9) {
-      return isSumLess(sum);
+    return isSumLess(sum);
   } else {
-      return sum;
+    return sum;
   }
 }
 
 function getUnique(...rest) {
   let res = [];
-    for (const value of rest) {
-      for (const key of value) {
-        if (!res.includes(key)) {
-          res.push(key);
-        }
-      } 
+  for (const value of rest) {
+    for (const key of value) {
+      if (!res.includes(key)) {
+        res.push(key);
+      }
     }
+  }
   return res;
 }
