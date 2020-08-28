@@ -3,18 +3,18 @@
 // MyArray class:
 
 class MyArray {
-  constructor() {
+  constructor(...rest) {
     this.length = 0;
 
-    for (let i = 0; i < arguments.length; i++) {
-      this[this.length] = arguments[i];
+    for (let i = 0; i < rest.length; i++) {
+      this[this.length] = rest[i];
       this.length++;
     }
   }
 
-  push() {
-    for (let i = 0; i < arguments.length; i++) {
-      this[this.length] = arguments[i];
+  push(...rest) {
+    for (let i = 0; i < rest.length; i++) {
+      this[this.length] = rest[i];
       this.length++;
     }
     return this.length;
@@ -84,13 +84,13 @@ class MyArray {
     }
   }
 
-  unshift() {
-    for (let i = arguments.length - 1; i >= 0; i--) {
-      for (let i = this.length - 1; i >= 0; i--) {
-        this[i + 1] = this[i];
+  unshift(...rest) {
+    for (let i = rest.length - 1; i >= 0; i--) {
+      for (let j = this.length - 1; j >= 0; j--) {
+        this[j + 1] = this[j];
       }
       this.length++;
-      this[0] = arguments[i];
+      this[0] = rest[i];
     }
     return this.length;
   }
@@ -100,6 +100,11 @@ class MyArray {
 
 class RangeValidator {
   constructor(from, to) {
+
+    if ( to <= from) {
+      throw new RangeError("To must be more than From");
+    }
+
     this._from = from;
     this._to = to;
   }
@@ -119,6 +124,8 @@ class RangeValidator {
     if (typeof to !== "number") {
       throw new TypeError("To must be a number");
     }
+
+    
     this._to = to;
   }
 
@@ -130,20 +137,18 @@ class RangeValidator {
     return [this._from, this._to];
   }
 
-  validate(number) {
-    return number >= this.from && number <= this.to;
+  validate(num) {
+    if (typeof num !== "number") {
+      throw new TypeError("Num must be a number");
+    }
+    return (num >= this.from && num <= this.to);
   }
 }
 
 // Array tasks:
 
 function isIncluded(arr, arg) {
-  for (const value of arr) {
-    if (value === arg) {
-      return true;
-    }
-  }
-  return false;
+  return arr.includes(arg);
 }
 
 function isSumLess(num) {
