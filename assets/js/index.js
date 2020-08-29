@@ -14,8 +14,7 @@ class MyArray {
 
   push(...rest) {
     for (let i = 0; i < rest.length; i++) {
-      this[this.length] = rest[i];
-      this.length++;
+      this[this.length++] = rest[i];
     }
     return this.length;
   }
@@ -113,6 +112,9 @@ class RangeValidator {
     if (typeof from !== "number") {
       throw new TypeError("From must be a number");
     }
+    if ( from >= this.to) {
+      throw new RangeError("To must be more than From");
+    }
     this._from = from;
   }
 
@@ -123,6 +125,9 @@ class RangeValidator {
   set to(to) {
     if (typeof to !== "number") {
       throw new TypeError("To must be a number");
+    }
+    if ( to <= this.from) {
+      throw new RangeError("To must be more than From");
     }
 
     
